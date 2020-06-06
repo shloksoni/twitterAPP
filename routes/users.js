@@ -11,10 +11,17 @@ const db=knex(
       database : 'postgres'
   }
 });
-db.select('tweet').from('twitter.tweets').where(`username=${}`)
+
 /* GET users listing. */
+
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  const quer=req.query.name;
+  db.withSchema('twitter').select('tweet').from('tweets').where(`username`,`${quer}`).then(data=>data.map(index=>
+    {
+          return res.send(res.send(index.tweet)); 
+    }))
+  //db.select('tweet').from('.').where(`tweets.username,${req.query.name}`).then(data=>console.log(data)).catch(err=>console.log(err));
+  
 });
 
 module.exports = router;

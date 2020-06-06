@@ -11,14 +11,19 @@ const db=knex(
       database : 'postgres'
   }
 });
-let tweet=``;
 
-console.log(tweet);
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  db.select('tweet').from('twitter.tweets').then(data=>res.send(data));
-  //res.render('index', { title: 'Express' });
+  let tweet=``;
+  db.select('tweet').from('twitter.tweets').then(data=> data.forEach(index => {
+    tweet +=index.tweet;
+  }
+  ));
   
+  //res.render('index', { title: 'Express' });
+  res.send(tweet);
 });
 
 module.exports = router;
