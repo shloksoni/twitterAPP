@@ -3,10 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+const cookieSession = require('cookie-session');
+var passport = require('passport');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var authRouter = require('./routes/userAuth');
 
+require('./services/passport');
 var app = express();
 
 // view engine setup
@@ -16,11 +19,19 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+// app.use(cookieParser());
+app.use(cookieSession({
+  maxAge : 30*24*60*60*1000,
+  keys: ['nsduviwqh08hvqbuibv873bsdbvuqb76']
+}))
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(passport.initialize());
+app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/auth', authRouter);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
