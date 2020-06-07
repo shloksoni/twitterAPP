@@ -1,23 +1,13 @@
 var express = require('express');
 var router = express.Router();
-const knex=require('knex');
-const db=knex(
-  {
-    client: 'pg',
-    connection: {
-      host : '127.0.0.1',
-      user : 'postgres',
-      password : '3012',
-      database : 'postgres'
-  }
-});
+const db = require('../services/database');
 
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   let tweet=``;
-  db.select('tweet').from('twitter.tweets').then(data=> data.forEach(index => {
+  db.select('tweet').from('tweets').then(data=> data.forEach(index => {
     tweet +=index.tweet;
   }
   ));
