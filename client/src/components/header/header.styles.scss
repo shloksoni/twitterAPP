@@ -1,0 +1,35 @@
+.header{
+    overflow: hidden;
+    background-color: #333;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+    
+    
+
+
+    .sub-header{
+        display: flex;
+        justify-content: space-between;
+        color: #f2f2f2;
+        align-items: center;
+        .sub-menu{
+          
+            display: flex;
+            justify-content: space-around;
+            width: 20%;
+        }
+        a{
+            text-decoration: none;
+            color: #f2f2f2;
+            text-align: center;
+            
+            padding: 20px;
+
+            &:hover{
+                background: #ddd;
+                color: black; 
+            }
+        }
+    }
+}

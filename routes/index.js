@@ -6,14 +6,9 @@ const db = require('../services/database');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  let tweet=``;
-  db.select('tweet').from('tweets').then(data=> data.forEach(index => {
-    tweet +=index.tweet;
-  }
-  ));
-  
-  //res.render('index', { title: 'Express' });
-  res.send(tweet);
+  if(req.user)
+      res.redirect('/feed');
+  else res.send("login first");
 });
 
 module.exports = router;

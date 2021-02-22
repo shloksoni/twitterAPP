@@ -8,6 +8,16 @@ var passport = require('passport');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var authRouter = require('./routes/userAuth');
+var tweetsRouter = require('./routes/tweets');
+var commentsRouter = require('./routes/comments');
+var profilesRouter = require('./routes/profiles');
+
+
+var bodyParser = require('body-parser');
+
+
+const cors = require('cors');
+
 
 require('./services/passport');
 var app = express();
@@ -15,11 +25,13 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
+app.use(cors());
+app.use(bodyParser.urlencoded( {extended :true} ))
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // app.use(cookieParser());
+
 app.use(cookieSession({
   maxAge : 30*24*60*60*1000,
   keys: ['nsduviwqh08hvqbuibv873bsdbvuqb76']
@@ -30,6 +42,13 @@ app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
+app.use('/tweet', tweetsRouter);
+app.use('/comments',commentsRouter);
+app.use('/profiles',profilesRouter);
+
+
+
+
 
 
 

@@ -21,7 +21,7 @@ passport.use(new GoogleStrategy({
     callbackURL: '/auth/google/callback'
   },
   function(accessToken, refreshToken, profile, done) {
-    
+    console.log(profile);
     db('users').select('*').where({profileid : `${profile.id}`})
     .then(data => {
       if(data.length === 0){
